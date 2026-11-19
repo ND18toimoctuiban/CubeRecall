@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f1">
+  <meta name="description" content="Học công thức OLL, PLL với flashcard, scramble 3x3 có hình và timer lưu thời gian giải.">
+  <title>Cube Recall — Học & luyện Rubik CFOP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Cube Recall, về đầu trang">
+      <span class="brand-cube" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="brand-name">cube<span>recall</span></span>
+    </a>
+    <div class="topbar-right">
+      <span class="top-note"><span class="status-dot"></span> Phòng luyện CFOP</span>
+      <a class="top-link" href="#sources">Nguồn công thức <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero page-width">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> RUBIK 3×3 · CFOP</div>
+        <h1>Nhớ công thức.<br><span>Nhìn là nhận ra.</span></h1>
+        <p class="hero-description">Ôn OLL, PLL bằng hình và flashcard; luyện giải với scramble 3×3 có hình trạng thái cùng đồng hồ bấm giờ.</p>
+        <div class="hero-actions">
+          <button class="button button-primary" id="heroStart" type="button">Bắt đầu kiểm tra <span aria-hidden="true">↗</span></button>
+          <button class="text-button" id="heroLearn" type="button">Xem bộ công thức <span aria-hidden="true">↓</span></button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+        <div class="hero-cube">
+          <div class="cube-face cube-top"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="cube-face cube-front"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="cube-face cube-side"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="art-label art-label-top"><b>OLL</b><span>định hướng</span></div>
+        <div class="art-label art-label-bottom"><b>PLL</b><span>hoán vị</span></div>
+        <div class="art-spark">✳</div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>78</strong><span>trường hợp</span></div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat"><strong>57</strong><span>công thức OLL</span></div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat"><strong>21</strong><span>công thức PLL</span></div>
+        <div class="stat-spacer"></div>
+        <div class="personal-stat"><span class="personal-icon">↗</span><span>Điểm cao nhất</span><strong id="bestScore">—</strong></div>
+        <div class="personal-stat"><span class="personal-icon personal-icon-green">✓</span><span>Đã thuộc</span><strong id="masteredCount">0 / 78</strong></div>
+      </div>
+    </section>
+
+    <section class="practice page-width" id="practice">
+      <div class="section-intro">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> KHU VỰC LUYỆN TẬP</div>
+          <h2>Mỗi lần một bước.</h2>
+        </div>
+        <p>Chọn một khu vực luyện tập để bắt đầu.</p>
+      </div>
+
+      <div class="main-mode-switch" role="tablist" aria-label="Chọn khu vực luyện tập">
+        <button class="main-mode-tab active" type="button" role="tab" aria-selected="true" data-main-mode="learn">
+          <span class="main-mode-icon" aria-hidden="true">▦</span>
+          <span><strong>Học công thức</strong><small>Học, Flashcard và Kiểm tra · 78 trường hợp</small></span>
+          <span class="main-mode-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="main-mode-tab" type="button" role="tab" aria-selected="false" data-main-mode="timer">
+          <span class="main-mode-icon main-mode-icon-timer" aria-hidden="true">⏱</span>
+          <span><strong>Scramble + Timer</strong><small>Tạo scramble, xem hình và bấm giờ giải</small></span>
+          <span class="main-mode-arrow" aria-hidden="true">↗</span>
+        </button>
+      </div>
+
+      <div class="workspace" id="learningWorkspace">
+        <div class="workspace-top">
+          <div class="family-tabs" role="tablist" aria-label="Chọn bộ công thức">
+            <button class="family-tab active" type="button" role="tab" aria-selected="true" data-family="all"><span class="tab-dot tab-dot-all"></span>Tất cả <small>78</small></button>
+            <button class="family-tab" type="button" role="tab" aria-selected="false" data-family="OLL"><span class="tab-dot tab-dot-oll"></span>OLL <small>57</small></button>
+            <button class="family-tab" type="button" role="tab" aria-selected="false" data-family="PLL"><span class="tab-dot tab-dot-pll"></span>PLL <small>21</small></button>
+          </div>
+          <div class="view-switch" role="tablist" aria-label="Chế độ">
+            <button class="view-tab active" type="button" role="tab" aria-selected="true" data-view="learn"><span aria-hidden="true">▦</span> Học</button>
+            <button class="view-tab" type="button" role="tab" aria-selected="false" data-view="flashcards"><span aria-hidden="true">▤</span> Flashcard</button>
+            <button class="view-tab" type="button" role="tab" aria-selected="false" data-view="quiz"><span aria-hidden="true">✳</span> Kiểm tra</button>
+          </div>
+        </div>
+
+        <section class="learn-view" id="learnView" aria-label="Bộ công thức">
+          <div class="learn-toolbar">
+            <div class="search-wrap">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input type="search" id="searchInput" placeholder="Tìm OLL 21, chữ cá, công thức..." autocomplete="off" aria-label="Tìm công thức">
+              <kbd>/</kbd>
+            </div>
+            <div class="toolbar-actions">
+              <span class="results-count" id="resultsCount">78 trường hợp</span>
+              <button class="button button-soft button-small" id="toggleFormulas" type="button">Ẩn công thức <span aria-hidden="true">◉</span></button>
+            </div>
+          </div>
+          <div class="group-filters" id="groupFilters" aria-label="Lọc theo nhóm"></div>
+          <div class="case-grid" id="learnGrid"></div>
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">⌕</div>
+            <h3>Chưa tìm thấy trường hợp này</h3>
+            <p>Thử một mã OLL/PLL hoặc tên nhóm khác nhé.</p>
+            <button class="text-button" id="clearSearch" type="button">Xóa tìm kiếm</button>
+          </div>
+        </section>
+
+        <section class="flashcard-view hidden" id="flashcardView" aria-label="Flashcard học công thức">
+          <div class="flashcard-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> THẺ GHI NHỚ</div>
+              <h3>Nhìn hình, nhớ công thức.</h3>
+              <p>Lật thẻ để xem công thức. Dùng phím ← → để chuyển thẻ, Space để lật.</p>
+            </div>
+            <div class="flashcard-tools">
+              <label class="flash-filter-label" for="flashGroupSelect">NHÓM</label>
+              <select id="flashGroupSelect" aria-label="Lọc flashcard theo nhóm"></select>
+              <button class="button button-soft button-small" id="shuffleFlashcards" type="button">Xáo thẻ <span aria-hidden="true">⤨</span></button>
+            </div>
+          </div>
+          <div class="flashcard-progress-row"><span id="flashPosition">01 / 78</span><div class="progress-track"><div class="progress-fill" id="flashProgress"></div></div><span id="flashRemaining">78 thẻ</span></div>
+          <div class="flash-stage">
+            <button class="flashcard" id="flashCard" type="button" aria-label="Lật thẻ để xem công thức" aria-pressed="false">
+              <span class="flash-inner" id="flashInner">
+                <span class="flash-face flash-front">
+                  <span class="flash-face-top"><span id="flashFrontFamily">OLL</span><span>HÌNH MINH HỌA</span></span>
+                  <span class="flash-visual"><img id="flashImage" alt=""><span class="flash-image-fallback hidden"><b>▦</b><small>Hình cần kết nối internet</small></span></span>
+                  <span class="flash-front-prompt"><b>Thử nhớ công thức</b><small>Chạm để lật thẻ <span aria-hidden="true">↻</span></small></span>
+                </span>
+                <span class="flash-face flash-back">
+                  <span class="flash-face-top"><span>CÔNG THỨC</span><span id="flashBackFamily">OLL</span></span>
+                  <span class="flash-back-content"><span class="flash-case-label" id="flashBackLabel">OLL 01</span><span class="flash-group-label" id="flashBackGroup">Nhóm</span><span class="flash-formula" id="flashFormula"></span><span class="flash-formula-origin hidden" id="flashFormulaOrigin"></span><span class="flash-back-hint">Đọc ký hiệu thành tiếng rồi thử xoay.</span></span>
+                  <span class="flash-back-bottom">CUBE RECALL <span aria-hidden="true">✳</span></span>
+                </span>
+              </span>
+            </button>
+          </div>
+          <div class="flashcard-controls">
+            <button class="button button-quiet button-small" id="flashPrevious" type="button"><span aria-hidden="true">←</span> Trước</button>
+            <button class="button button-soft button-small" id="flashMarkMastered" type="button">+ Đã thuộc</button>
+            <button class="button button-primary button-small" id="flashReveal" type="button">Lật thẻ <span aria-hidden="true">↻</span></button>
+            <button class="button button-quiet button-small" id="flashNext" type="button">Tiếp <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+
+
+        <section class="quiz-view hidden" id="quizView" aria-label="Bài kiểm tra">
+          <div class="quiz-setup" id="quizSetup">
+            <div class="quiz-setup-copy">
+              <div class="quiz-icon">✳</div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> LUYỆN TRÍ NHỚ</div>
+              <h3>Sẵn sàng thử sức?</h3>
+              <p>Câu hỏi và vị trí đáp án sẽ được xáo trộn mỗi lượt. Chọn cách ôn phù hợp với bạn.</p>
+              <div class="quiz-options">
+                <button class="quiz-kind selected" type="button" data-quiz-kind="formula">
+                  <span class="kind-radio"></span><span><b>Nhớ công thức</b><small>Chọn thuật toán đúng với hình</small></span><span class="kind-mark">Aa</span>
+                </button>
+                <button class="quiz-kind" type="button" data-quiz-kind="name">
+                  <span class="kind-radio"></span><span><b>Nhận diện case</b><small>Chọn tên đúng với hình</small></span><span class="kind-mark">?</span>
+                </button>
+              </div>
+            </div>
+            <div class="quiz-setup-panel">
+              <div class="setup-label">SỐ CÂU HỎI</div>
+              <div class="count-options" role="group" aria-label="Số câu hỏi">
+                <button type="button" data-count="10">10</button>
+                <button type="button" data-count="20" class="selected">20</button>
+                <button type="button" data-count="all">Tất cả</button>
+              </div>
+              <div class="setup-note"><span aria-hidden="true">⟳</span><span>Không có hai lượt giống nhau.<br>Mỗi câu đều có đáp án mới.</span></div>
+              <button class="button button-primary button-wide" id="startQuiz" type="button">Bắt đầu lượt mới <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+
+          <div class="quiz-run hidden" id="quizRun">
+            <div class="quiz-progress-head">
+              <div><span class="quiz-kicker">ĐANG LUYỆN</span><strong id="questionPosition">Câu 1 / 20</strong></div>
+              <div class="live-score"><span>ĐÚNG</span><b id="liveScore">0</b></div>
+              <button class="button button-quiet button-small" id="quitQuiz" type="button">Kết thúc lượt <span aria-hidden="true">×</span></button>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="quiz-question">
+              <div class="question-copy">
+                <div class="question-chip"><span class="status-dot"></span><span id="questionFamily">OLL</span><span class="chip-separator">/</span><span id="questionGroup">Nhóm</span></div>
+                <h3 id="questionPrompt">Chọn công thức đúng với hình này.</h3>
+                <p>Nhìn kỹ trạng thái mặt trên rồi chọn một đáp án.</p>
+              </div>
+              <div class="question-image-wrap"><img id="questionImage" alt=""><span class="image-caption">TRƯỜNG HỢP CẦN NHỚ</span></div>
+            </div>
+            <div class="answer-head"><span>CHỌN MỘT ĐÁP ÁN</span><span class="answer-hint">Phím 1–4 để chọn</span></div>
+            <div class="answer-grid" id="answerGrid"></div>
+            <div class="answer-feedback hidden" id="answerFeedback" aria-live="polite"></div>
+            <div class="quiz-footer">
+              <span id="answerStatus">Chọn đáp án bạn cho là đúng.</span>
+              <button class="button button-primary button-small hidden" id="nextQuestion" type="button">Câu tiếp <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+
+          <div class="quiz-summary hidden" id="quizSummary"></div>
+        </section>
+      </div>
+        <section class="timer-view hidden" id="timerView" aria-label="Scramble và đồng hồ bấm giờ">
+          <div class="timer-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> PHÒNG SPEEDCUBING</div>
+              <h3>Scramble. Xoay. Bấm giờ.</h3>
+              <p>Tạo scramble 3×3 có hình trạng thái tương ứng rồi ghi lại thời gian giải.</p>
+            </div>
+            <div class="timer-shortcut"><kbd>Space</kbd><span>giữ đến khi xanh, thả để bắt đầu<br>nhấn lại để dừng</span></div>
+          </div>
+          <div class="timer-layout">
+            <section class="scramble-panel" aria-label="Scramble 3x3">
+              <div class="scramble-panel-head">
+                <div><span class="panel-kicker">SCRAMBLE HIỆN TẠI</span><span class="scramble-length">20 bước</span></div>
+                <div class="scramble-actions">
+                  <button class="button button-quiet button-small" id="copyScramble" type="button">Sao chép</button>
+                  <button class="button button-quiet button-small" id="saveScramble" type="button">Lưu scramble <span aria-hidden="true">♡</span></button>
+                  <button class="button button-soft button-small" id="newScramble" type="button">Scramble mới <span aria-hidden="true">⤨</span></button>
+                </div>
+              </div>
+              <div class="scramble-sequence" id="scrambleSequence" aria-live="polite"></div>
+              <div class="saved-scrambles">
+                <div class="saved-scrambles-heading"><span>SCRAMBLE ĐÃ LƯU</span><span id="savedScrambleCount">0</span></div>
+                <div class="saved-scramble-list" id="savedScrambleList"><p class="saved-scramble-empty">Chưa có scramble nào được lưu.</p></div>
+              </div>
+              <div class="cube-net-wrap">
+                <div class="cube-net" id="cubeNet" role="img" aria-label="Hình trạng thái khối Rubik sau scramble"></div>
+                <div class="cube-key" aria-label="Màu các mặt khối Rubik">
+                  <span><i class="key-U"></i>U</span><span><i class="key-L"></i>L</span><span><i class="key-F"></i>F</span><span><i class="key-R"></i>R</span><span><i class="key-B"></i>B</span><span><i class="key-D"></i>D</span>
+                </div>
+              </div>
+              <p class="scramble-footnote">Lưới 2D hiển thị đủ sáu mặt; mặt U ở trên, mặt F hướng về phía người giải.</p>
+            </section>
+            <section class="timer-panel" id="timerPanel" aria-label="Đồng hồ và kết quả">
+              <div class="timer-panel-kicker"><span class="status-dot"></span> ĐỒNG HỒ 3×3</div>
+              <div class="timer-readout" id="timerReadout" aria-live="off">0.00</div>
+              <p class="timer-status" id="timerStatus" aria-live="polite">Giữ Space rồi thả, hoặc bấm nút bên dưới.</p>
+              <button class="timer-start-button" id="timerStart" type="button">Bắt đầu giải <span aria-hidden="true">↗</span></button>
+              <div class="timer-stat-grid">
+                <div><span>LẦN GẦN NHẤT</span><b id="lastTime">—</b></div>
+                <div><span>TỐT NHẤT</span><b id="bestTime">—</b></div>
+                <div class="timer-stat-wide"><span>AO5</span><b id="ao5Time">—</b></div>
+              </div>
+              <div class="timer-history-wrap">
+                <div class="timer-history-heading"><span>CÁC LẦN GẦN ĐÂY</span><span class="timer-history-actions"><span id="timerSolveCount">0 lần giải</span><button class="text-button timer-clear-history" id="clearTimerHistory" type="button">Xóa lịch sử</button></span></div>
+                <ol class="timer-history" id="timerHistory"><li class="timer-history-empty">Chưa có thời gian nào được lưu.</li></ol>
+              </div>
+            </section>
+          </div>
+        </section>
+    </section>
+
+    <section class="howto page-width">
+      <div class="howto-card">
+        <div class="howto-number">01</div>
+        <div><span class="howto-label">HỌC THEO NHÓM</span><h3>Chia nhỏ để nhớ lâu</h3><p>Ôn vài trường hợp mỗi lượt. Dùng nút “Đã thuộc” để đánh dấu những công thức bạn có thể nhớ mà không cần nhìn.</p></div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-number">02</div>
+        <div><span class="howto-label">KIỂM TRA NGẪU NHIÊN</span><h3>Để trí nhớ tự trả lời</h3><p>Bật chế độ “Nhớ công thức” để chọn thuật toán theo hình, hoặc “Nhận diện case” để luyện phản xạ gọi tên.</p></div>
+      </div>
+      <div class="howto-card howto-tip">
+        <div class="tip-mark">✳</div>
+        <div><span class="howto-label">MẸO NHỎ</span><h3>Luyện đều mỗi ngày</h3><p>Chỉ cần 5–10 phút ôn lại các công thức cũ cũng giúp chúng ở lại trong trí nhớ lâu hơn.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer page-width" id="sources">
+    <div class="footer-brand"><span class="brand-cube footer-cube" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>cube<span>recall</span></span></div>
+    <div class="footer-copy">Hình minh họa và công thức tham khảo từ
+      <a href="https://rubikonline.vn/57-cong-thuc-oll-tao-mat-vang-cfop" target="_blank" rel="noreferrer">bài OLL của RubikOnline.vn</a> và
+      <a href="https://rubikonline.vn/21-cong-thuc-pll-hoan-vi-tang-cuoi-cung-cfop" target="_blank" rel="noreferrer">bài PLL của RubikOnline.vn</a>.
+      Hình ảnh được tải trực tiếp từ máy chủ của nguồn.
+    </div>
+    <a class="back-top" href="#" aria-label="Lên đầu trang">↑</a>
+  </footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
