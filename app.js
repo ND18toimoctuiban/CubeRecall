@@ -116,6 +116,14 @@
       return '<li><span>#' + (timerTimes.length - index) + '</span><b>' + formatTimer(time) + '</b></li>';
     }).join("") : '<li class="timer-history-empty">Chưa có thời gian nào được lưu.</li>';
     document.getElementById("clearTimerHistory").disabled = timerTimes.length === 0;
+    if (document.getElementById("timerHistoryDialog").open) renderAllTimerHistory();
+  }
+
+  function renderAllTimerHistory() {
+    document.getElementById("timerHistoryTotal").textContent = timerTimes.length + " lượt giải";
+    document.getElementById("timerHistoryFull").innerHTML = timerTimes.length ? timerTimes.map(function (time, index) {
+      return '<li><span>Lần #' + (timerTimes.length - index) + '</span><b>' + formatTimer(time) + '</b></li>';
+    }).join("") : '<li class="timer-history-empty">Chưa có thời gian nào được lưu.</li>';
   }
 
   function renderSavedScrambles() {
@@ -132,6 +140,7 @@
 
   function displayScramble() {
     document.getElementById("scrambleSequence").textContent = scrambleMoves.join(" ");
+    document.getElementById("scrambleLength").textContent = scrambleMoves.length + " bước";
     renderCubeImage();
   }
 
@@ -140,7 +149,8 @@
     var axisByFace = {U:1,D:1,L:0,R:0,F:2,B:2};
     var suffixes = ["", "'", "2"];
     var moves = [];
-    while (moves.length < 20) {
+    var targetLength = 18 + Math.floor(Math.random() * 8);
+    while (moves.length < targetLength) {
       var face = faces[Math.floor(Math.random() * faces.length)];
       var previousFace = moves.length ? moves[moves.length - 1].charAt(0) : "";
       if (face === previousFace || (previousFace && axisByFace[face] === axisByFace[previousFace])) continue;
@@ -313,7 +323,6 @@
     if (timerFrame) window.cancelAnimationFrame(timerFrame);
     timerFrame = null;
     timerTimes.unshift(elapsed);
-    timerTimes = timerTimes.slice(0, 500);
     writeStore("cubeRecallTimerTimesV1", timerTimes);
     document.getElementById("timerReadout").textContent = formatTimer(elapsed);
     document.getElementById("timerStatus").textContent = "Đã lưu thời gian · scramble hiện tại vẫn được giữ.";
@@ -904,6 +913,13 @@
     }
   });
   document.getElementById("clearTimerHistory").addEventListener("click", clearTimerHistory);
+  document.getElementById("showAllTimerHistory").addEventListener("click", function () {
+    renderAllTimerHistory();
+    document.getElementById("timerHistoryDialog").showModal();
+  });
+  document.getElementById("closeTimerHistory").addEventListener("click", function () {
+    document.getElementById("timerHistoryDialog").close();
+  });
   document.getElementById("copyScramble").addEventListener("click", function () {
     copyText(scrambleMoves.join(" "));
     var button = this;

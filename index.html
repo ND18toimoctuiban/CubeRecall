@@ -220,7 +220,7 @@
           <div class="timer-layout">
             <section class="scramble-panel" aria-label="Scramble 3x3">
               <div class="scramble-panel-head">
-                <div><span class="panel-kicker">SCRAMBLE HIỆN TẠI</span><span class="scramble-length">20 bước</span></div>
+                <div><span class="panel-kicker">SCRAMBLE HIỆN TẠI</span><span class="scramble-length" id="scrambleLength">— bước</span></div>
                 <div class="scramble-actions">
                   <button class="button button-quiet button-small" id="copyScramble" type="button">Sao chép</button>
                   <button class="button button-quiet button-small" id="saveScramble" type="button">Lưu scramble <span aria-hidden="true">♡</span></button>
@@ -251,12 +251,19 @@
                 <div class="timer-stat-wide"><span>AO5</span><b id="ao5Time">—</b></div>
               </div>
               <div class="timer-history-wrap">
-                <div class="timer-history-heading"><span>CÁC LẦN GẦN ĐÂY</span><span class="timer-history-actions"><span id="timerSolveCount">0 lần giải</span><button class="text-button timer-clear-history" id="clearTimerHistory" type="button">Xóa lịch sử</button></span></div>
+                <div class="timer-history-heading"><span>CÁC LẦN GẦN ĐÂY</span><span class="timer-history-actions"><span id="timerSolveCount">0 lần giải</span><button class="text-button timer-full-history-button" id="showAllTimerHistory" type="button">Xem tất cả</button><button class="text-button timer-clear-history" id="clearTimerHistory" type="button">Xóa lịch sử</button></span></div>
                 <ol class="timer-history" id="timerHistory"><li class="timer-history-empty">Chưa có thời gian nào được lưu.</li></ol>
               </div>
             </section>
           </div>
         </section>
+        <dialog class="timer-history-dialog" id="timerHistoryDialog" aria-labelledby="timerHistoryTitle">
+          <div class="timer-history-dialog-heading">
+            <div><span class="panel-kicker">TIMER 3×3</span><h3 id="timerHistoryTitle">Toàn bộ lịch sử solve</h3><p id="timerHistoryTotal">0 lần giải</p></div>
+            <button class="timer-history-close" id="closeTimerHistory" type="button" aria-label="Đóng lịch sử">×</button>
+          </div>
+          <ol class="timer-history-full" id="timerHistoryFull"><li class="timer-history-empty">Chưa có thời gian nào được lưu.</li></ol>
+        </dialog>
     </section>
 
     <section class="howto page-width">
