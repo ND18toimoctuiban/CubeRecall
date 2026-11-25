@@ -8,7 +8,7 @@ CubeRecall là trang web tĩnh giúp học và luyện công thức OLL, PLL tro
 - Học bằng flashcard có hình minh họa và kiểm tra với câu hỏi, đáp án được xáo trộn.
 - Xem các công thức mirror ngay cạnh trường hợp liên quan.
 - Tạo chuỗi setup bằng cách đảo ngược công thức để đưa một khối đã giải về case OLL/PLL; xem hình trạng thái khối và sao chép chuỗi setup.
-- Tạo scramble 3×3, xem lưới trạng thái sáu mặt và dùng timer để ghi thời gian giải.
+- Tạo scramble 3×3, xem lưới trạng thái sáu mặt và dùng timer; mỗi lượt có thể lưu hoặc bỏ.
 - Lưu scramble, xem kết quả gần đây, best time và AO5.
 
 ## Chạy trang web

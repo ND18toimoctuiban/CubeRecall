@@ -33,6 +33,7 @@
   if (!Array.isArray(savedScrambles)) savedScrambles = [];
   savedScrambles = savedScrambles.filter(function (scramble) { return typeof scramble === "string" && scramble.trim(); });
   var timerRunning = false;
+  var pendingTime = null;
   var timerStartStamp = 0;
   var timerFrame = null;
   var timerKeyHeld = false;
@@ -263,7 +264,7 @@
   }
 
   function newScramble() {
-    if (timerRunning) return;
+    if (timerRunning || pendingTime !== null) return;
     scrambleMoves = createScramble();
     displayScramble();
   }
@@ -295,14 +296,16 @@
     var panel = document.getElementById("timerPanel");
     panel.classList.toggle("is-running", timerRunning);
     panel.classList.toggle("is-ready", timerKeyHeld && timerArmed && !timerRunning);
-    document.getElementById("newScramble").disabled = timerRunning;
+    document.getElementById("newScramble").disabled = timerRunning || pendingTime !== null;
     var button = document.getElementById("timerStart");
-    button.innerHTML = timerRunning ? 'Dừng và lưu <span aria-hidden="true">■</span>' : 'Bắt đầu giải <span aria-hidden="true">↗</span>';
-    button.setAttribute("aria-label", timerRunning ? "Dừng và lưu thời gian" : "Bắt đầu giải bấm giờ");
+    button.innerHTML = timerRunning ? 'Dừng solve <span aria-hidden="true">■</span>' : (pendingTime !== null ? 'Chọn lưu hoặc bỏ lượt' : 'Bắt đầu giải <span aria-hidden="true">↗</span>');
+    button.disabled = pendingTime !== null;
+    button.setAttribute("aria-label", timerRunning ? "Dừng thời gian" : (pendingTime !== null ? "Chọn lưu hoặc bỏ thời gian vừa giải" : "Bắt đầu giải bấm giờ"));
+    document.getElementById("pendingSolveActions").classList.toggle("hidden", pendingTime === null);
   }
 
   function startTimer() {
-    if (timerRunning) return;
+    if (timerRunning || pendingTime !== null) return;
     timerRunning = true;
     timerStartStamp = performance.now();
     document.getElementById("timerStatus").textContent = "Đang giải · nhấn Space hoặc bấm nút để dừng.";
@@ -322,12 +325,27 @@
     timerRunning = false;
     if (timerFrame) window.cancelAnimationFrame(timerFrame);
     timerFrame = null;
-    timerTimes.unshift(elapsed);
-    writeStore("cubeRecallTimerTimesV1", timerTimes);
+    pendingTime = elapsed;
     document.getElementById("timerReadout").textContent = formatTimer(elapsed);
+    document.getElementById("timerStatus").textContent = "Solve dừng · chọn Lưu thời gian hoặc Bỏ lượt. Scramble hiện tại vẫn được giữ.";
+    updateTimerMode();
+  }
+
+  function savePendingSolve() {
+    if (pendingTime === null) return;
+    timerTimes.unshift(pendingTime);
+    writeStore("cubeRecallTimerTimesV1", timerTimes);
+    pendingTime = null;
     document.getElementById("timerStatus").textContent = "Đã lưu thời gian · scramble hiện tại vẫn được giữ.";
     updateTimerMode();
     renderTimerStats();
+  }
+
+  function discardPendingSolve() {
+    if (pendingTime === null) return;
+    pendingTime = null;
+    document.getElementById("timerStatus").textContent = "Đã bỏ lượt này · thời gian không được lưu.";
+    updateTimerMode();
   }
 
   function cancelTimerArm() {
@@ -894,7 +912,7 @@
   document.getElementById("savedScrambleList").addEventListener("click", function (event) {
     var loadButton = event.target.closest("[data-load-scramble]");
     if (loadButton) {
-      if (timerRunning) return;
+      if (timerRunning || pendingTime !== null) return;
       var loadIndex = Number(loadButton.dataset.loadScramble);
       if (!isFinite(loadIndex) || !savedScrambles[loadIndex]) return;
       scrambleMoves = savedScrambles[loadIndex].trim().split(/\s+/);
@@ -932,6 +950,8 @@
     if (timerRunning) stopTimer();
     else startTimer();
   });
+  document.getElementById("savePendingSolve").addEventListener("click", savePendingSolve);
+  document.getElementById("discardPendingSolve").addEventListener("click", discardPendingSolve);
   document.getElementById("searchInput").addEventListener("input", renderLearn);
   document.getElementById("clearSearch").addEventListener("click", function () {
     document.getElementById("searchInput").value = "";
@@ -1023,6 +1043,7 @@
         if (!event.repeat) stopTimer();
         return;
       }
+      if (pendingTime !== null) return;
       if (event.repeat || timerKeyHeld) return;
       timerKeyHeld = true;
       timerArmed = false;

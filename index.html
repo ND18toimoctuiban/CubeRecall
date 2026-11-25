@@ -245,6 +245,10 @@
               <div class="timer-readout" id="timerReadout" aria-live="off">0.00</div>
               <p class="timer-status" id="timerStatus" aria-live="polite">Giữ Space rồi thả, hoặc bấm nút bên dưới.</p>
               <button class="timer-start-button" id="timerStart" type="button">Bắt đầu giải <span aria-hidden="true">↗</span></button>
+              <div class="timer-pending-actions hidden" id="pendingSolveActions" aria-label="Lưu hoặc bỏ thời gian vừa giải">
+                <button class="timer-save-solve" id="savePendingSolve" type="button">Lưu thời gian</button>
+                <button class="timer-discard-solve" id="discardPendingSolve" type="button">Bỏ lượt</button>
+              </div>
               <div class="timer-stat-grid">
                 <div><span>LẦN GẦN NHẤT</span><b id="lastTime">—</b></div>
                 <div><span>TỐT NHẤT</span><b id="bestTime">—</b></div>

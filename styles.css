@@ -289,8 +289,15 @@ a { color: inherit; }
 .timer-status { min-height: 30px; margin: 4px 0 12px; color: #909a92; text-align: center; font-size: 9px; line-height: 1.6; }
 .timer-start-button { width: min(100%, 240px); min-height: 43px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #d7e6da; border-radius: 8px; background: #edf5ef; color: #356b4e; font: 700 11px var(--sans); cursor: pointer; transition: .15s; }
 .timer-start-button:hover { border-color: #aac9b3; background: #e4f0e6; }
+.timer-start-button:disabled { border-color: #e5e9e3; background: #f5f6f2; color: #929b93; cursor: default; }
 .timer-panel.is-ready .timer-start-button { border-color: #7bb18a; background: #dff0e2; color: #267046; }
 .timer-panel.is-running .timer-start-button { border-color: #ead8a1; background: #fbf5df; color: #856d30; }
+.timer-pending-actions { width: min(100%, 300px); display: flex; gap: 8px; margin-top: 8px; }
+.timer-pending-actions button { min-height: 36px; flex: 1; border: 1px solid #dce8dd; border-radius: 7px; font: 700 10px var(--sans); cursor: pointer; }
+.timer-save-solve { background: #edf5ef; color: #356b4e; }
+.timer-save-solve:hover { background: #e2efe4; }
+.timer-discard-solve { border-color: #ece3df !important; background: #fff; color: #8b6d62; }
+.timer-discard-solve:hover { background: #faf4f1; }
 .timer-stat-grid { width: 100%; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 18px; }
 .timer-stat-grid > div { min-width: 0; display: flex; flex-direction: column; gap: 5px; padding: 9px; border: 1px solid #eef0e9; border-radius: 7px; background: #fbfcf8; }
 .timer-stat-grid > div span { color: #9aa39b; font: 7px var(--mono); letter-spacing: .5px; }
